@@ -81,7 +81,7 @@ int main() {
     while (!q.empty()) {
         auto look = q.front();
         q.pop();
-        for (auto w : Move(look)) {
+        for (const auto& w : Move(look)) {
             if (res.find(w) == res.end()) {
                 res[w] = res[look] + 1;
                 q.push(w);
