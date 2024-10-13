@@ -16,10 +16,8 @@ vector<heap> Move(const heap& d) {
     for (int i = 0; i < 8; ++i) {
         if (((d >> (68 * i)) & full) == full) {
             ans.push_back(d ^ (full << (68 * i)));
+            return ans;
         }
-    }
-    if (!ans.empty()) {
-        return ans;
     }
     heap help;
     for (int i = 0; i < 8; ++i) {
@@ -64,11 +62,10 @@ int main() {
             }
             help = change[c];
             ++count[help];
-            have <<= 4;
-            have[0] = help & 1;
-            have[1] = help & 2;
-            have[2] = help & 4;
-            have[3] = help & 8;
+            have[68 * j + 32 - 4 * i] = help & 1;
+            have[68 * j + 32 - 4 * i + 1] = help & 2;
+            have[68 * j + 32 - 4 * i + 2] = help & 4;
+            have[68 * j + 32 - 4 * i + 3] = help & 8;
         }
     }
     for (int i = 1; i < 10; ++i) {
@@ -91,8 +88,8 @@ int main() {
             }
         }
     }
-    if (res.find(0) != res.end()) {
-        std::cout << "It can be solved in " << res[0] << " steps\n";
+    if (res.find(heap()) != res.end()) {
+        std::cout << "It can be solved in " << res[heap()] << " steps\n";
     } else {
         std::cout << "It can not be solved\n";
     }
